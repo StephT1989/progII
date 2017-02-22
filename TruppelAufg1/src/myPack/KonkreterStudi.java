@@ -21,6 +21,10 @@ public class KonkreterStudi extends Studi{
 		super.registrieren();
 	}
 	
+	public void vermitteln(){
+		super.vermitteln();
+	}
+	
 	public void setzePartner(String partnerName)
 	{
 		super.partner = partnerName;

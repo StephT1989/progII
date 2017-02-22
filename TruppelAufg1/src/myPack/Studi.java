@@ -20,6 +20,11 @@ public abstract class Studi {
 		public void registrieren() {
 			vermittler.registrieren(this); // Vermittler informiert
 		}
+		
+		
+		public void vermitteln() {
+			vermittler.vermitteln(this); // Vermittler informiert
+		}
 
 		
 }
