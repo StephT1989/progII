@@ -8,6 +8,7 @@ public abstract class Studi {
 	public int fitnessInf;
 	public int fitnessMathe;
 	public String partner;
+	public Studi konkrPartner;
 	
 	public void setzePartner(String partnerName){}
 	
