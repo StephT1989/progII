@@ -10,6 +10,10 @@ public abstract class Studi {
 	public String partner;
 	public Studi konkrPartner;
 	
+	
+	
+	
+	
 	public void setzePartner(String partnerName){}
 	
 	public Studi(Vermittler v) {

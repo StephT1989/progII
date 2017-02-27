@@ -10,14 +10,16 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class KonkreterVermittler extends Vermittler{
 	
-	
+	public KonkreterVermittler(Zuord z)
+	{
+		super(z);
+		System.out.println("KonkreterVermittler: instanziiert");
+	}
 	public ArrayList<Studi> registrierteStudierende = new ArrayList<Studi>();
 	
 	HashMap<Studi, Studi> zugeteilteStudierende = new HashMap<Studi, Studi>();
 	
-	public KonkreterVermittler() {
-		System.out.println("KonkreterVermittler: instanziiert");
-	}
+	
 	
 	
 	@Override
@@ -31,7 +33,12 @@ public class KonkreterVermittler extends Vermittler{
 	
 	@Override
 	public void vermitteln(Studi studi){
-		int infGesamtNutzen = 0;
+		
+		this.zuordnung.praeferenzMatrixBerechnen(studi,this.registrierteStudierende);
+		
+		
+		
+		/*int infGesamtNutzen = 0;
 		int matheGesamtNutzen = 0;
 		int gesamtNutzen = 0;
 		int neuerGesamtNutzen = 0;
@@ -53,7 +60,7 @@ public class KonkreterVermittler extends Vermittler{
 				
 			}
 		}
-		System.out.println(gesamtNutzen);
+		System.out.println(gesamtNutzen);*/
 		
 		
 	}
