@@ -30,6 +30,15 @@ public abstract class Studi {
 		public void vermitteln() {
 			vermittler.vermitteln(this); // Vermittler informiert
 		}
+		
+		
+		@Override
+		   public String toString() {
+		        return ("[name="+this.name+
+		                    ", fitnessInf="+ this.fitnessInf +
+		                    ", fitnessMathe="+ this.fitnessMathe+
+		                    "]");
+		   }
 
 		
 }
