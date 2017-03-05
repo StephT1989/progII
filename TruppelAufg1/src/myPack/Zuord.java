@@ -2,35 +2,51 @@ package myPack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
+import javax.swing.tree.TreeNode;
 
 public class Zuord {
 
 	// HashMap<String, Long> praeferenzMatrix = new HashMap<String, Long>();
 	// ArrayList<Studi, ArrayList<Long>> praeferenzMatrix = new
 	// ArrayList<Studi,ArrayList<Long>>();
-	HashMap<Studi, ArrayList<Long>> praeferenzMatrix = new HashMap<Studi, ArrayList<Long>>();
 
-	//ArrayList<Long> gesamtNutzenArr = new ArrayList<Long>();
-	//public int[] nutzWerte = new int[];
+	// alt
+	// HashMap<Studi, ArrayList<Long>> praeferenzMatrix = new HashMap<Studi,
+	// ArrayList<Long>>();
+	// ArrayList<Long> nutzWerte = new ArrayList<Long>();
+	// ArrayList<ArrayList<Long>> NEUnutzWerte = new
+	// ArrayList<ArrayList<Long>>();
+
+	// ArrayList<ArrayList<Long>> nutzWerteGesamt = new
+	// ArrayList<ArrayList<Long>>();
 	
-	ArrayList<Long> nutzWerte = new ArrayList<Long>();
-	 
-
-	public void praeferenzMatrixBerechnen(Studi studi, ArrayList<Studi> registrierteStudierende) {
+	
+	
+	public void vermittlungBerechnen(Studi studi, ArrayList<Studi> registrierteStudierende){
 		
+		
+	}
+
+	public ArrayList<Long> praefMatrixAusgeben(Studi studi, ArrayList<Studi> registrierteStudierende) {
+		ArrayList<Long> nutzWerteStudi = new ArrayList<Long>();
+
 		int i = 0;
 		for (Studi s : registrierteStudierende) {
-			
-			//praeferenzMatrix.clear();
-			System.out.println("Aktuelles Obj in Schleife: " + s.name);
+			// System.out.println("Beginn Schleife RegStudi " + s.name);
+			// System.out.println("Schleifencounter: " +i);
+			// System.out.println(" Akt. Studi: " + studi.name);
 			int gesamtNutzenS = 0;
 			int gesamtNutzenStudi = 0;
 			long gesamtNutzen = 0;
-			
 
 			int z = 0;
-			//gesamtNutzenArr = null;
 			if (!studi.equals(s)) {
 				if (studi.fitnessInf < s.fitnessInf && studi.fitnessMathe < s.fitnessMathe) {
 					gesamtNutzenStudi = (s.fitnessInf - studi.fitnessInf) + (s.fitnessMathe - studi.fitnessMathe);
@@ -53,40 +69,23 @@ public class Zuord {
 
 				gesamtNutzen = gesamtNutzenStudi + gesamtNutzenS;
 
-				System.out
-						.println("name: " + studi.name + " inf: " + studi.fitnessInf + " mathe: " + studi.fitnessMathe);
-				System.out.println("name: " + s.name + " inf: " + s.fitnessInf + " mathe: " + s.fitnessMathe);
-				System.out.println(s.name + " profitiert mit " + studi.name + " : " + gesamtNutzenS);
-				System.out.println(studi.name + " profitiert mit " + s.name + " : " + gesamtNutzenStudi);
-				System.out.println("Gesamtnutzen zw. " + studi.name + " und " + s.name + " : " + gesamtNutzen);
-				System.out.println("--------");
-
-				nutzWerte.add((long) gesamtNutzenStudi);
+				nutzWerteStudi.add((long) gesamtNutzenStudi);
 
 			} else {
 				gesamtNutzen = 0;
-				nutzWerte.add((long) 0);
-				
+				nutzWerteStudi.add((long) 0);
 
 			}
-			
-			
-			
+			// System.out.println("nutzWerte: " + nutzWerteStudi.toString());
+			// System.out.println("Ende Schleife");
+			i++;
+			System.out.println(gesamtNutzen);
 		}
-		praeferenzMatrix.put(studi, nutzWerte);
+		// praeferenzMatrix.put(studi, nutzWerte);
+		// System.out.println("Inhalt: " + praeferenzMatrix.values());
+		// nutzWerteStudi.clear();
 		
 		
-		
-		//System.out.println(registrierteStudierende.toString());
-		
-		// zunaechst mit keySet alle Schluessel ausgeben (studi-objekte) und dann toString-Methode aus Studi-Klasse anwenden.
-		System.out.println(praeferenzMatrix.keySet().toString());
-		System.out.println(praeferenzMatrix.values());
-		nutzWerte.clear();
-		//System.out.println(nutzWerte.toString());
-		//System.out.println(nutzWerte.size());
+		return nutzWerteStudi;
 	}
-	
-	
-
 }

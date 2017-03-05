@@ -1,5 +1,7 @@
 package myPack;
 
+import java.util.ArrayList;
+
 public abstract class Studi {
 	
 	// Frage: Wieso darf das Attribut Vermittler nicht privat sein
@@ -26,7 +28,9 @@ public abstract class Studi {
 			vermittler.registrieren(this); // Vermittler informiert
 		}
 		
-		
+		public ArrayList<Long> praefMatrixAusgeben(){
+			return vermittler.praefMatrixAusgeben(this);
+		}
 		public void vermitteln() {
 			vermittler.vermitteln(this); // Vermittler informiert
 		}

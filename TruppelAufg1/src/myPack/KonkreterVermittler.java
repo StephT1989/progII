@@ -13,54 +13,33 @@ public class KonkreterVermittler extends Vermittler{
 	public KonkreterVermittler(Zuord z)
 	{
 		super(z);
-		System.out.println("KonkreterVermittler: instanziiert");
+		//System.out.println("KonkreterVermittler: instanziiert");
 	}
 	public ArrayList<Studi> registrierteStudierende = new ArrayList<Studi>();
 	
 	HashMap<Studi, Studi> zugeteilteStudierende = new HashMap<Studi, Studi>();
 	
-	
+	public ArrayList<Studi> regStudierendeAusgeben(){
+		
+		return this.registrierteStudierende;
+		
+	}
 	
 	
 	@Override
 	public void registrieren(Studi s){
-		System.out.println("wird registriert");
+		//System.out.println("wird registriert");
 		this.registrierteStudierende.add(s);
 		
 
 	}
 	
 	
-	@Override
-	public void vermitteln(Studi studi){
+	
+	public ArrayList<Long> praefMatrixAusgeben(Studi studi){
 		
-		this.zuordnung.praeferenzMatrixBerechnen(studi,this.registrierteStudierende);
+		return this.zuordnung.praefMatrixAusgeben(studi,this.registrierteStudierende);
 		
-		
-		
-		/*int infGesamtNutzen = 0;
-		int matheGesamtNutzen = 0;
-		int gesamtNutzen = 0;
-		int neuerGesamtNutzen = 0;
-		//zugeteilteStudierende.put(studi, null);
-		
-		for (Studi s : this.registrierteStudierende)
-		{
-			// Studierender kann nicht sich selbst als Lerpartner zugeordnet werden
-			if (!s.equals(studi))
-			{
-				infGesamtNutzen = s.fitnessInf + studi.fitnessInf;
-				matheGesamtNutzen = s.fitnessMathe + studi.fitnessMathe;
-				neuerGesamtNutzen = infGesamtNutzen + matheGesamtNutzen;
-				
-				if (neuerGesamtNutzen > gesamtNutzen){
-					gesamtNutzen = neuerGesamtNutzen;
-					zugeteilteStudierende.put(studi, s);
-				}
-				
-			}
-		}
-		System.out.println(gesamtNutzen);*/
 		
 		
 	}
@@ -73,6 +52,14 @@ public class KonkreterVermittler extends Vermittler{
 		
 		System.out.println(s.name);
 		}
+	}
+
+
+
+	@Override
+	public void vermitteln(Studi studi) {
+		zuordnung.vermittlungBerechnen();
+		
 	}
 
 

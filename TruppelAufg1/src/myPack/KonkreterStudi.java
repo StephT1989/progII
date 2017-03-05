@@ -1,5 +1,7 @@
 package myPack;
 
+import java.util.ArrayList;
+
 public class KonkreterStudi extends Studi{
 
 	
@@ -39,5 +41,9 @@ public class KonkreterStudi extends Studi{
 		  }
 		  return false;
 		
+	}
+	
+	public ArrayList<Long> praefMatrixAusgeben(){
+		return super.praefMatrixAusgeben();
 	}
 }
