@@ -9,7 +9,8 @@ public abstract class Studi {
 	public String name;
 	public int fitnessInf;
 	public int fitnessMathe;
-	public String partner;
+	boolean partner = false;
+	String flag;
 	public Studi konkrPartner;
 	
 	
