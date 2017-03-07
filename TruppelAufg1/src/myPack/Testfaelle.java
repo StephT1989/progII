@@ -15,13 +15,15 @@ public class Testfaelle {
 		Studi[] arrStudis = new Studi[26];
 		Random rand1 = new Random(123);
 		Random rand2 = new Random(123);
+		//rand1 = new Random(123);
 		int  pseudoZufall1;
 		int  pseudoZufall2;
 		int i = 0;
 		char alphabet = 'A';
 		while (i <=25 && alphabet<= 'Z'){
-			pseudoZufall1 = rand1.nextInt(10);
-			pseudoZufall2 = rand2.nextInt(10);
+			
+			pseudoZufall1 = rand1.nextInt(9);
+			pseudoZufall2 = rand2.nextInt(9);
 			String name = String.valueOf(alphabet);
 			KonkreterStudi konkreterStudi = new KonkreterStudi(konkreterVermittler, name, pseudoZufall1, pseudoZufall2, z);
 			arrayliststudi.add(konkreterStudi);
@@ -36,6 +38,7 @@ public class Testfaelle {
 		KonkreterStudi konkreterStudi1 = new KonkreterStudi(konkreterVermittler, "B", 3, 7,z);
 		KonkreterStudi konkreterStudi2 = new KonkreterStudi(konkreterVermittler, "C", 6, 6,z);
 		KonkreterStudi konkreterStudi3 = new KonkreterStudi(konkreterVermittler, "D", 10, 1,z);
+		
 		KonkreterStudi konkreterStudi4 = new KonkreterStudi(konkreterVermittler, "E", 0, 10,z);
 		KonkreterStudi konkreterStudi5 = new KonkreterStudi(konkreterVermittler, "F", 3, 7,z);
 		KonkreterStudi konkreterStudi6 = new KonkreterStudi(konkreterVermittler, "g", 6, 6,z);
@@ -71,12 +74,13 @@ public class Testfaelle {
 		*/
 		
 		
+		/*
 		
-		
-		/*arrayliststudi.add(konkreterStudi);
+		arrayliststudi.add(konkreterStudi);
 		arrayliststudi.add(konkreterStudi1);
 		arrayliststudi.add(konkreterStudi2);
 		arrayliststudi.add(konkreterStudi3);
+		
 		arrayliststudi.add(konkreterStudi4);
 		arrayliststudi.add(konkreterStudi5);
 		arrayliststudi.add(konkreterStudi6);

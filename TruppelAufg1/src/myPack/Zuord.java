@@ -36,81 +36,113 @@ public class Zuord {
 
 	public void vermittlungBerechnen(ArrayList<Studi> registrierteStudierende) {
 
+		// registrierteStudierende.sh
+
+		 Collections.shuffle(registrierteStudierende);
 		ArrayList<Studi> reverseRegistrierteStudierende = new ArrayList<Studi>();
 		reverseRegistrierteStudierende.addAll(registrierteStudierende);
 		Collections.reverse(reverseRegistrierteStudierende);
 
 		for (Studi itemA : registrierteStudierende) {
-			reverseRegistrierteStudierende.remove(reverseRegistrierteStudierende.size() - 1);
-			int gesamtNutzenS = 0;
-			int gesamtNutzenStudi = 0;
-			int gesamtNutzen = 0;
-			gesamtNutzenGlobal = 0;
-
 			//if (!itemA.partner) {
-			// Problem: itemZ ist nur ne Kopie also wird partner == true nicht funktionieren. Idee: Array machen und mit ItemZ auf Index zugreifen
+				reverseRegistrierteStudierende.remove(reverseRegistrierteStudierende.size() - 1);
+				int gesamtItemAInf = 0;
+				int gesamtItemAMathe = 0;
+				int gesamtItemA = 0;
+
+				int gesamtItemZInf = 0;
+				int gesamtItemZMathe = 0;
+				int gesamtItemZ = 0;
+
+				int gesamtNutzen = 0;
+				gesamtNutzenGlobal = 0;
+
+				// if (!itemA.partner) {
+				// Problem: itemZ ist nur ne Kopie also wird partner == true
+				// nicht
+				// funktionieren. Idee: Array machen und mit ItemZ auf Index
+				// zugreifen
 				for (Studi itemZ : reverseRegistrierteStudierende) {
 					System.out.println(itemA.name + itemZ.name);
+
+					// (A|B)= (B.info-A.info) + (B.mathe-A.mathe)
 					if (!itemZ.partner && !itemA.partner) {
-						
-						if (itemA.fitnessInf < itemZ.fitnessInf && itemA.fitnessMathe < itemZ.fitnessMathe) {
-							gesamtNutzenStudi = (itemZ.fitnessInf - itemA.fitnessInf)
-									+ (itemZ.fitnessMathe - itemA.fitnessMathe);
-							gesamtNutzenS = 0;
-						}
-						if (itemA.fitnessInf > itemZ.fitnessInf && itemA.fitnessMathe > itemZ.fitnessMathe) {
-							gesamtNutzenS = (itemA.fitnessInf - itemZ.fitnessInf)
-									+ (itemA.fitnessMathe - itemZ.fitnessMathe);
-							gesamtNutzenStudi = 0;
-						}
-						if (itemA.fitnessInf < itemZ.fitnessInf && itemA.fitnessMathe > itemZ.fitnessMathe) {
-							gesamtNutzenStudi = itemZ.fitnessInf - itemA.fitnessInf;
-							gesamtNutzenS = itemA.fitnessMathe - itemZ.fitnessMathe;
 
-						}
-						if (itemA.fitnessInf > itemZ.fitnessInf && itemA.fitnessMathe < itemZ.fitnessMathe) {
-							gesamtNutzenS = itemA.fitnessInf - itemZ.fitnessInf;
-							gesamtNutzenStudi = itemZ.fitnessMathe - itemA.fitnessMathe;
-
+						if (itemA.fitnessInf - itemZ.fitnessInf < 0) {
+							gesamtItemAInf = 0;
+						} else {
+							gesamtItemAInf = itemA.fitnessInf - itemZ.fitnessInf;
 						}
 
-						gesamtNutzen = gesamtNutzenStudi + gesamtNutzenS;
-						// gesamtNutzenGlobal = gesamtNutzenGlobal +
-						// gesamtNutzen;
-						// System.out.println(gesamtNutzen);
+						if (itemA.fitnessMathe - itemZ.fitnessMathe < 0) {
+							gesamtItemAMathe = 0;
+						} else {
+							gesamtItemAMathe = itemA.fitnessMathe - itemZ.fitnessMathe;
+						}
 
-						if (gesamtNutzen > gesamtNutzenGlobal) {
+						gesamtItemA = gesamtItemAMathe + gesamtItemAInf;
+
+						if (itemZ.fitnessInf - itemA.fitnessInf < 0) {
+							gesamtItemZInf = 0;
+						} else {
+							gesamtItemZInf = itemZ.fitnessInf - itemA.fitnessInf;
+						}
+
+						if (itemZ.fitnessMathe - itemA.fitnessMathe < 0) {
+							gesamtItemZMathe = 0;
+						} else {
+							gesamtItemZMathe = itemZ.fitnessMathe - itemZ.fitnessMathe;
+						}
+
+						gesamtItemZ = gesamtItemZMathe + gesamtItemZInf;
+
+						gesamtNutzen = gesamtItemZ + gesamtItemA;
+						System.out.println(gesamtNutzen);
+
+						if (gesamtNutzen >= gesamtNutzenGlobal) {
+							//System.out.println("ist größer");
 							gesamtNutzenGlobal = gesamtNutzen;
 							this.zwSp1 = itemA.name;
 							this.zwSp2 = itemZ.name;
 							zwSp1Obj = itemA;
 							zwSp2Obj = itemZ;
+
 							gesamtNutzenGlobalSumme = gesamtNutzenGlobalSumme + gesamtNutzenGlobal;
 						}
 
+						// System.out.println(gesamtNutzenGlobalSumme);
+					} else {
+						System.out.println(itemA.name + " oder " + itemZ.name + " schon gepartnert, " + itemA.flag + " "
+								+ itemZ.flag);
+						//System.out.println("schon gepartnert");
 					}
-					else{
-						System.out.println(itemA.name + " oder "+ itemZ.name + " schon gepartnert, " + itemA.flag + " "+ itemZ.flag);
-					}
+
 				}
 				System.out.println(zwSp1 + zwSp2 + " haben den höchsten Gesamtnutzen: " + gesamtNutzenGlobal);
 				zwSp1Obj.partner = true;
 				zwSp1Obj.flag = "gepartnert";
 				zwSp2Obj.partner = true;
 				zwSp2Obj.flag = "gepartnert";
-				registrierteStudierende.set(registrierteStudierende.indexOf(zwSp1Obj),zwSp1Obj);
-				registrierteStudierende.set(registrierteStudierende.indexOf(zwSp2Obj),zwSp2Obj);
-			}
-			
-			
-			
-			
-			
-			
-			//registrierteStudierende.notifyAll();
+				registrierteStudierende.set(registrierteStudierende.indexOf(zwSp1Obj), zwSp1Obj);
+				registrierteStudierende.set(registrierteStudierende.indexOf(zwSp2Obj), zwSp2Obj);
+				//gesamtNutzenGlobal = 0;
+				// reverseRegistrierteStudierende.set(reverseRegistrierteStudierende.indexOf(zwSp1Obj),zwSp1Obj);
+				// reverseRegistrierteStudierende.set(reverseRegistrierteStudierende.indexOf(zwSp2Obj),zwSp2Obj);
+			//}
+			//else
+			//{
+				//System.out.println("wurde schon gepartnert");
+			//}
+				
 
-		//}
-		System.out.println(gesamtNutzenGlobalSumme);
+		}
+
+		//System.out.println(gesamtNutzenGlobalSumme);
+
+		// registrierteStudierende.notifyAll();
+
+		// }
+
 	}
 
 	public ArrayList<Long> praefMatrixAusgeben(Studi studi, ArrayList<Studi> registrierteStudierende) {
