@@ -46,4 +46,7 @@ public class KonkreterStudi extends Studi{
 	public ArrayList<Long> praefMatrixAusgeben(){
 		return super.praefMatrixAusgeben();
 	}
+	
+	
+	
 }

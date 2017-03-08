@@ -1,6 +1,7 @@
 package myPack;
 
 import java.util.ArrayList;
+import static java.util.stream.Collectors.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import javax.swing.tree.TreeNode;
+
 
 public class Zuord {
 
@@ -29,6 +31,7 @@ public class Zuord {
 
 	public int gesamtNutzenGlobal = 0;
 	public int gesamtNutzenGlobalSumme = 0;
+	public ArrayList<Studi> registrierteStudierendeUrzustand = new ArrayList<Studi>();
 	public String zwSp1;
 	public String zwSp2;
 	Studi zwSp1Obj;
@@ -36,15 +39,46 @@ public class Zuord {
 
 	public void vermittlungBerechnen(ArrayList<Studi> registrierteStudierende) {
 
-		// registrierteStudierende.sh
+		 /*
+		  * 
+		  *  List<Dog> clone = new ArrayList<Dog>(list.size());
+    for (Dog item : list) clone.add(item.clone());
+    return clone;
+		*/
+		
+		//ArrayList<Studi> registrierteStudierendeUrzustand =  registrierteStudierende.stream().map(d -> d.clone()).collect(toCollection(ArrayList::new));
+		for (Studi studi : registrierteStudierende){
+			//Student18 s2=(Student18)s1.clone(); 
+			try{
+			Studi studi2 = (Studi)studi.clone();
+			registrierteStudierendeUrzustand.add(studi2);
+			}catch(CloneNotSupportedException c){}  
+		}
+		
+		
+		//registrierteStudierendeUrzustand = registrierteStudierende;
+		int m = 1;
+		while (m <= 2) {
+			//System.out.println("--LOS--");
+			gesamtNutzenGlobalSumme = 0;
+			registrierteStudierende.clear();
+			for (Studi studi : registrierteStudierendeUrzustand){
+				//Student18 s2=(Student18)s1.clone(); 
+				try{
+				Studi studi2 = (Studi)studi.clone();
+				registrierteStudierende.add(studi2);
+				}catch(CloneNotSupportedException c){}  
+			}
+			//System.out.println("while beginnt");
+			Collections.shuffle(registrierteStudierende);
+			ArrayList<Studi> reverseRegistrierteStudierende = new ArrayList<Studi>();
+			reverseRegistrierteStudierende.addAll(registrierteStudierende);
+			Collections.reverse(reverseRegistrierteStudierende);
 
-		 Collections.shuffle(registrierteStudierende);
-		ArrayList<Studi> reverseRegistrierteStudierende = new ArrayList<Studi>();
-		reverseRegistrierteStudierende.addAll(registrierteStudierende);
-		Collections.reverse(reverseRegistrierteStudierende);
-
-		for (Studi itemA : registrierteStudierende) {
-			//if (!itemA.partner) {
+			for (Studi itemA : registrierteStudierende) {
+				
+				//System.out.println("erste for");
+				// if (!itemA.partner) {
 				reverseRegistrierteStudierende.remove(reverseRegistrierteStudierende.size() - 1);
 				int gesamtItemAInf = 0;
 				int gesamtItemAMathe = 0;
@@ -63,7 +97,9 @@ public class Zuord {
 				// funktionieren. Idee: Array machen und mit ItemZ auf Index
 				// zugreifen
 				for (Studi itemZ : reverseRegistrierteStudierende) {
-					System.out.println(itemA.name + itemZ.name);
+					
+					//System.out.println("zweite for");
+					//System.out.println(itemA.name + itemZ.name);
 
 					// (A|B)= (B.info-A.info) + (B.mathe-A.mathe)
 					if (!itemZ.partner && !itemA.partner) {
@@ -97,47 +133,62 @@ public class Zuord {
 						gesamtItemZ = gesamtItemZMathe + gesamtItemZInf;
 
 						gesamtNutzen = gesamtItemZ + gesamtItemA;
-						System.out.println(gesamtNutzen);
+						// System.out.println(gesamtNutzen);
 
 						if (gesamtNutzen >= gesamtNutzenGlobal) {
-							//System.out.println("ist größer");
+							// System.out.println("ist größer");
 							gesamtNutzenGlobal = gesamtNutzen;
 							this.zwSp1 = itemA.name;
 							this.zwSp2 = itemZ.name;
 							zwSp1Obj = itemA;
 							zwSp2Obj = itemZ;
 
-							gesamtNutzenGlobalSumme = gesamtNutzenGlobalSumme + gesamtNutzenGlobal;
+							
 						}
 
 						// System.out.println(gesamtNutzenGlobalSumme);
 					} else {
-						System.out.println(itemA.name + " oder " + itemZ.name + " schon gepartnert, " + itemA.flag + " "
-								+ itemZ.flag);
-						//System.out.println("schon gepartnert");
+						//System.out.println(itemA.name + " oder " + itemZ.name + " schon gepartnert, " + itemA.flag + " "
+							//	+ itemZ.flag);
+						
 					}
-
+					
 				}
-				System.out.println(zwSp1 + zwSp2 + " haben den höchsten Gesamtnutzen: " + gesamtNutzenGlobal);
+				
+				/*System.out.println(zwSp1Obj.name+zwSp2Obj.name+ " mit: "+ zwSp1Obj.name + ":Info=" + zwSp1Obj.fitnessInf+",Mathe="+zwSp1Obj.fitnessMathe
+						+" und " + zwSp2Obj.name + ":Info=" + zwSp2Obj.fitnessInf+",Mathe="+zwSp2Obj.fitnessMathe
+						+ " haben den höchsten Gesamtnutzen: " + gesamtNutzenGlobal);*/
+				
+				//System.out.println(gesamtNutzenGlobal);
 				zwSp1Obj.partner = true;
 				zwSp1Obj.flag = "gepartnert";
 				zwSp2Obj.partner = true;
 				zwSp2Obj.flag = "gepartnert";
 				registrierteStudierende.set(registrierteStudierende.indexOf(zwSp1Obj), zwSp1Obj);
 				registrierteStudierende.set(registrierteStudierende.indexOf(zwSp2Obj), zwSp2Obj);
-				//gesamtNutzenGlobal = 0;
-				// reverseRegistrierteStudierende.set(reverseRegistrierteStudierende.indexOf(zwSp1Obj),zwSp1Obj);
-				// reverseRegistrierteStudierende.set(reverseRegistrierteStudierende.indexOf(zwSp2Obj),zwSp2Obj);
-			//}
-			//else
-			//{
-				//System.out.println("wurde schon gepartnert");
-			//}
+				
+				gesamtNutzenGlobalSumme = gesamtNutzenGlobalSumme + gesamtNutzenGlobal;
+				
+				if (gesamtNutzenGlobalSumme >= 113){
+					System.out.println(zwSp1Obj.name+zwSp2Obj.name+ " mit: "+ zwSp1Obj.name + ":Info=" + zwSp1Obj.fitnessInf+",Mathe="+zwSp1Obj.fitnessMathe
+							+" und " + zwSp2Obj.name + ":Info=" + zwSp2Obj.fitnessInf+",Mathe="+zwSp2Obj.fitnessMathe
+							+ " haben den höchsten Gesamtnutzen: " + gesamtNutzenGlobal);
+					
+				}
 				
 
+			}
+			//if (gesamtNutzenGlobalSumme >= 113){
+			System.out.println(gesamtNutzenGlobalSumme);
+			//System.out.println(gesamtNutzenGlobalSumme);
+			
+			m++;
+			registrierteStudierende.clear();
+			//registrierteStudierende = registrierteStudierendeUrzustand;
+			//System.out.println("----Ende ---");
 		}
 
-		//System.out.println(gesamtNutzenGlobalSumme);
+		// System.out.println(gesamtNutzenGlobalSumme);
 
 		// registrierteStudierende.notifyAll();
 

@@ -2,7 +2,7 @@ package myPack;
 
 import java.util.ArrayList;
 
-public abstract class Studi {
+public abstract class Studi implements Cloneable{
 	
 	// Frage: Wieso darf das Attribut Vermittler nicht privat sein
 	public Vermittler vermittler; // Referenz auf den Vermittler
@@ -44,6 +44,12 @@ public abstract class Studi {
 		                    ", fitnessMathe="+ this.fitnessMathe+
 		                    "]");
 		   }
+		
+		
+		public Object clone()throws CloneNotSupportedException{  
+			return super.clone();  
+			}
+	}
 
 		
-}
+

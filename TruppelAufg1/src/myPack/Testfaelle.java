@@ -22,8 +22,8 @@ public class Testfaelle {
 		char alphabet = 'A';
 		while (i <=25 && alphabet<= 'Z'){
 			
-			pseudoZufall1 = rand1.nextInt(9);
-			pseudoZufall2 = rand2.nextInt(9);
+			pseudoZufall1 = rand1.nextInt(10);
+			pseudoZufall2 = rand2.nextInt(10);
 			String name = String.valueOf(alphabet);
 			KonkreterStudi konkreterStudi = new KonkreterStudi(konkreterVermittler, name, pseudoZufall1, pseudoZufall2, z);
 			arrayliststudi.add(konkreterStudi);
